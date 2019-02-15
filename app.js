@@ -6,7 +6,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
 const blogRouter = require('./controllers/blogs')
-
+const middleware = require('./utils/middleware')
 
 
 
@@ -26,6 +26,6 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(morgan('tiny'))
 app.use('/api/blogs',blogRouter)
-
+app.use(middleware.errorHandler)
 
 module.exports = app
