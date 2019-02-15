@@ -1,3 +1,4 @@
+const config = require('./utils/config')
 const http = require('http')
 const express = require('express')
 const app = express()
@@ -10,9 +11,7 @@ const middleware = require('./utils/middleware')
 
 
 
-const url = `mongodb://blogilista:fullstack1@ds135255.mlab.com:35255/blogilista`
-const mongoUrl = url
-mongoose.connect(mongoUrl, { useNewUrlParser: true })
+mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true })
 .then(result =>{
   console.log('toimii');
   
