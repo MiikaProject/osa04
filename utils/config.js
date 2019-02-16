@@ -1,5 +1,16 @@
-let PORT = 3003
-let MONGODB_URI = `mongodb://blogilista:fullstack1@ds135255.mlab.com:35255/blogilista`
+
+if(process.env.NODE_ENV !== 'production'){
+    require('dotenv').config()
+}
+
+let PORT = process.env.PORT
+let MONGODB_URI = process.env.MONGODB_URI
+
+if(process.env.NODE_ENV ==='test'){
+    MONGODB_URI = process.env.MONGOTESTDB_URI
+}
+
+
 module.exports = {
     MONGODB_URI,
     PORT

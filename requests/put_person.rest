@@ -1,7 +1,9 @@
-PUT http://localhost:3003/api/blogs/5c5ed792031cd608942fdc91
+PUT http://localhost:3003/api/blogs/5c686c949826e41fe0e86c11
 Content-Type: application/json
 
 {
-    "name":"Eija",
-    "number": "8888"
+  "title" : "Miikka",
+  "author": "Miika",
+  "url": "10 mile",
+  "likes": ""
 }
