@@ -3,6 +3,7 @@ const supertest = require('supertest')
 const app = require('../app')
 const helper = require('./test_helper')
 const Blog = require('../models/blog')
+const User = require('../models/user')
 const api = supertest(app)
 
 beforeEach(async () => {
@@ -87,28 +88,97 @@ describe('post method test', () => {
 
         blogs.map(blog => {
             if (blog.title === lisays.title) {
-                
+
                 expect(blog.likes).toBe(0)
 
             }
         })
 
- 
+
     })
 
-    test ('invalid blog cant be added', async ()=>{
+    test('invalid blog cant be added', async () => {
         const newBlog = {
-            
+
             url: "urli",
             likes: 3
         }
 
         await api
-        .post('/api/blogs')
-        .send(newBlog)
-        .expect(400)
+            .post('/api/blogs')
+            .send(newBlog)
+            .expect(400)
     })
 
+})
+
+
+describe('users', async () => {
+    beforeEach(async () => {
+        await User.deleteMany({})
+        const user = new User({ username: 'root', name: 'user', password: 'sekret' })
+        await user.save()
+    })
+
+    test('lisays onnistuu', async () => {
+        const usersAtStart = await helper.usersInDb()
+
+
+        const newUser = {
+            username: 'aikainen',
+            name: 'lintu',
+            password: 'nappaa'
+        }
+
+
+        const result = await api
+            .post('/api/users')
+            .send(newUser)
+            .expect(200)
+            .expect('Content-Type', /application\/json/)
+
+
+
+        const usersAtEnd = await helper.usersInDb()
+
+
+        expect(usersAtEnd.length).toBe(usersAtStart.length + 1)
+
+
+    })
+
+    test('username already taken', async () => {
+        const usersAtStart = await helper.usersInDb()
+
+
+        const newUser = { username: 'root', name: 'user', password: 'sekret' }
+
+        const result = await api
+            .post('/api/users')
+            .send(newUser)
+            .expect(400)
+            .expect('Content-Type', /application\/json/)
+
+        const usersAtEnd = await helper.usersInDb()
+        expect(usersAtEnd.length).toBe(usersAtStart.length)
+
+    })
+
+    test('username too short', async ()=>{
+        const usersAtStart = await helper.usersInDb()
+
+
+        const newUser = { username: 'r', name: 'user', password: 'sekret' }
+
+        const result = await api
+            .post('/api/users')
+            .send(newUser)
+            .expect(400)
+            .expect('Content-Type', /application\/json/)
+
+        const usersAtEnd = await helper.usersInDb()
+        expect(usersAtEnd.length).toBe(usersAtStart.length)
+    })
 })
 
 

@@ -1,9 +1,14 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3RpIiwiaWQiOiI1YzY4Yjk0YWUwYTc2YTUyNTQwYTU2OTAiLCJpYXQiOjE1NTA0MTA4NjF9.aY0yjgEYe02GxF1zuPT2NDQuRjfuCHVcU3pT9PImH0U
 
 {
-  "title" : "Miika",
-  "author": "Miika",
-  "url": "10 mile",
-  "likes": ""
+  "title":"Kirja",
+  "author": "Testi",
+  "url": "JJJJ",
+  "likes": "3",
+  "userId": "5c68af9dbe74fa493c74a92d"
 }
+
+
+//
