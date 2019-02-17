@@ -1,3 +1,5 @@
+var _ = require('lodash');
+
 const blogs = [
     {
         _id: "5a422a851b54a676234d17f7",
@@ -93,14 +95,98 @@ const favoriteBlog = (blogs) => {
 
 }
 
+const mostBlogsAuthor = (blogs) => {
+
+    let kirjailijat = blogs.map(blog => blog.author)
+
+    kirjailijat = kirjailijat.map(kirjailija => {
+        return ({
+            author: kirjailija,
+            times: 0
+        })
+    })
+
+    kirjailijat.forEach(kirjailija => {
+        var luku = 0;
+
+        for (var i = 0; i < kirjailijat.length; i++) {
+            if (kirjailijat[i].author === kirjailija.author) {
+
+                luku++
+            }
+        }
+        kirjailija.times = luku
+    })
+    let isoin = (kirjailijat.map(kirjailija => (kirjailija.times)))
+    isoin = Math.max(...isoin)
+
+    kirjailijat = kirjailijat.filter(kirjailija => {
+        if (kirjailija.times === isoin) {
+            eniten = kirjailija.times
+            return (kirjailija)
+        }
+    })
+
+
+    return ({
+        author: kirjailijat[0].author,
+        blogs: kirjailijat[0].times
+    })
+
+}
+
+
+
+const mostLikes = (blogs) => {
+    let kirjailijat = blogs.map(blog => blog.author)
+
+    kirjailijat = kirjailijat.map(kirjailija => {
+        return ({
+            author: kirjailija,
+            likes: 0
+        })
+    })
+
+
+
+    kirjailijat.forEach(kirjailija => {
+        for (i = 0; i < blogs.length; i++) {
+            if (kirjailija.author === blogs[i].author) {
+                kirjailija.likes += blogs[i].likes
+            }
+        }
+    })
+
+
+    let liket = kirjailijat.map(k => k.likes)
+    let eniten = Math.max(...liket)
+
+    console.log(eniten);
+
+    kirjailijat = kirjailijat.filter(kirjailija => {
+        if(kirjailija.likes ===eniten){
+            return kirjailija
+        }
+    })
+
+    return({
+        author:kirjailijat[0].author,
+        likes:kirjailijat[0].likes
+    })
+    
+
+    
+
+}
+
 
 
 module.exports = {
     dummy,
     totalLikes,
-    favoriteBlog
+    favoriteBlog,
+    mostBlogsAuthor,
+    mostLikes
 }
 
-
-favoriteBlog(blogs)
 

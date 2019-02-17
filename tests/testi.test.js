@@ -61,7 +61,7 @@ const listWithManyBlogs = [
     url: "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
     likes: 2,
     __v: 0
-  }  
+  }
 ]
 
 
@@ -75,9 +75,9 @@ test('dummy returns one', () => {
 
 
 describe('total likes', () => {
-  
 
-  
+
+
 
   test('when list has only one blog equals the likes of that', () => {
     const result = listHelper.totalLikes(listWithOneBlog)
@@ -89,15 +89,15 @@ describe('total likes', () => {
     expect(result).toBe(0)
   })
 
-  test('of a bigger list is calculated right', () =>{
+  test('of a bigger list is calculated right', () => {
     const result = listHelper.totalLikes(listWithManyBlogs)
     expect(result).toBe(36)
   })
 })
 
 
-describe('favorite blog', () =>{
-  test('Favorite blog', () =>{
+describe('favorite blog', () => {
+  test('Favorite blog', () => {
     const testi = {
       title: "Canonical string reduction",
       author: "Edsger W. Dijkstra",
@@ -109,4 +109,32 @@ describe('favorite blog', () =>{
 
 
 
+})
+
+describe('blog with most likes return writer and likes', () => {
+  test('Author with most blogs', () => {
+
+    expectedResult = {
+      author: "Robert C. Martin",
+      blogs: 3
+    }
+
+    result = listHelper.mostBlogsAuthor(listWithManyBlogs)
+
+    expect(result).toEqual(expectedResult)
+  })
+  test('Author with most likes', () => {
+
+
+
+    expectedResult = {
+      author: "Edsger W. Dijkstra",
+      likes: 17
+    }
+
+    result = listHelper.mostLikes(listWithManyBlogs)
+
+    expect(result).toEqual(expectedResult)
+
+  })
 })
